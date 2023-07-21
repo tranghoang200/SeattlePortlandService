@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Seattle to Portland Pick-up Service</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS and JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-database-compat.js"></script> -->
+    <script type="module">
+        document.getElementById("subscribe-btn").addEventListener("click", subscribeToFirebase);
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAs3Cf3jy8uX4-MyjPcEcwUOtyHyB2Cazo",
+            authDomain: "seattleportlandservice.firebaseapp.com",
+            databaseURL: "https://seattleportlandservice-default-rtdb.firebaseio.com",
+            projectId: "seattleportlandservice",
+            storageBucket: "seattleportlandservice.appspot.com",
+            messagingSenderId: "824411472115",
+            appId: "1:824411472115:web:09b214fcc80376e1aa3786",
+            measurementId: "G-03B73JKVMQ"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        // window.db = db;
+        function subscribeToFirebase() {
+            const database = getDatabase(app);
+
+            const emailInput = document.getElementById("email-input").value;
+            console.log('here')
+            // Check if the email input is not empty
+            if (emailInput !== "") {
+                console.log(database)
+                // Add the email to the Firebase Firestore collection (e.g., "subscribers")
+                set(ref(database, "subscribers"), {
+                email: emailInput
+            })
+                .then(() => {
+                    // Success message or any additional actions you want to perform
+                    alert("Thank you for subscribing!");
+                    document.getElementById("email-input").value = ""; // Clear the input field
+                })
+                .catch((error) => {
+                    // Error handling
+                    console.error("Error adding document: ", error);
+                });
+            } else {
+                // Handle the case when the email input is empty
+                alert("Please enter your email.");
+            }
+        }
+
+        window.subscribeToFirebase = subscribeToFirebase;
+    </script>
+</head>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="site-header py-3">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#value-proposition">Value Proposition</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    <header class="hero-section" id="home">
+        <div class="container text-center">
+            <h1 class="display-4 mb-3" style="color: #f9f9f9;">Seattle to Portland Pick-up Service</h1>
+            <p class="mb-3 display-6" style="color: yellow;">Experience Hassle-Free Product Transportation</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container py-5">
+        <div class="row">
+            <div class="col-lg-6">
+                <img src="/images/seattle.jpg" alt="Seattle" class="img-fluid mb-4"
+                    style="width: 100%; max-height: 450px;">
+            </div>
+            <div class="col-lg-6">
+                <img src="/images/portland.jpg" alt="Portland" class="img-fluid mb-4" style="width: 100%;">
+            </div>
+        </div>
+        <p class="lead">Our service provides reliable pick-up of product items between Seattle and Portland.</p>
+        <p class="lead">Subscribe to our email list to receive updates and special offers:</p>
+        <!-- Email List Form -->
+        <form id="subscribe-form" class="mb-4">
+            <div class="input-group">
+                <input type="email" name="email" id="email-input" class="form-control" placeholder="Your email address"
+                    required>
+                <button class="btn btn-primary" type="button" id="subscribe-btn">Subscribe</button>
+            </div>
+        </form>
+    </main>
+
+    <div class="row" id="value-proposition">
+        <div class="overlay"></div>
+        <div class="col-md-5">
+            <h2 class="mb-4" id="title">Experience Hassle-Free Product Transportation Between Seattle and Portland!</h2>
+            <p>Say goodbye to the complexities of organizing transportation between two major cities. Our pick-up
+                service ensures your product items are collected from your desired location in Portland and delivered
+                promptly to your designated address in Seattle as well as the other way around – from Seattle to
+                Portland. No more dealing with logistics, delays, or uncertain
+                timelines – we've got you covered!</p>
+            <p>We understand the importance of timely deliveries for businesses and individuals alike. Our service is
+                dedicated to punctuality and ensuring your items reach their destination on schedule. You can rest
+                assured that your products will be handled with utmost care and professionalism throughout the journey.
+            </p>
+            <p>Avoid the stress of coordinating transportation routes, finding carriers, or managing inventory
+                movements. Our experienced team takes care of all the logistics involved, allowing you to focus on other
+                critical aspects of your business or personal life.</p>
+        </div>
+        <div class="col-md-5" id="features">
+            <h2 class="mb-4" id="title">Why Choose Us?</h2>
+            <ul>
+                <li>Convenience and Efficiency</li>
+                <li>Timely and Reliable Deliveries</li>
+                <li>Stress-Free Logistics</li>
+                <li>Cost-Effective Solutions</li>
+                <li>Comprehensive Customer Support</li>
+                <li>Safety and Security</li>
+                <li>Regular Updates and Special Offers</li>
+            </ul>
+            <p>Join our growing community of satisfied customers who have experienced the ease and efficiency of our
+                pick-up service. Whether you're a business owner looking to streamline your supply chain or an
+                individual seeking a reliable shipping option, our service is designed to cater to your unique
+                requirements.</p>
+            <p>Experience the convenience, reliability, and peace of mind with our pick-up service between Seattle and
+                Portland. Let us handle your transportation needs, so you can focus on what truly matters – growing your
+                business and enjoying a stress-free shipping experience!</p>
+            <p>Subscribe to our email list today and embark on a journey of hassle-free product transportation with our
+                dedicated team at your service!</p>
+        </div>
+    </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-dark text-white text-center py-3" id="contact">
+        <p>Contact us at: <a href="mailto:tranghoang200@gmail.com" style="color: yellow;">tranghoang200@gmail.com</a>
+        </p>
+        <p>Photo by <a
+                href="https://unsplash.com/@lucamicheli?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Luca
+                Micheli</a> <a
+                href="https://unsplash.com/@shenny_visuals?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Justin
+                Shen</a> on <a
+                href="https://unsplash.com/photos/RpvC77-exG0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+        </p>
+    </footer>
+
+   
+</body>
+
+</html>
